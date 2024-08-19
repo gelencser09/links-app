@@ -1,9 +1,12 @@
-import Image from "next/image";
+import { fetchUsers } from "./lib/data/users-data";
 
-export default function Home() {
+export default async function Home() {
+  const allUsers = await fetchUsers();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      main page
+      {allUsers.map((user) => (
+        <div key={user.id}>{user.username}</div>
+      ))}
     </main>
   );
 }
