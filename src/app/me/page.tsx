@@ -1,6 +1,17 @@
-import { getSession } from "../lib/actions/users-actions";
+"use client";
 
-export default async function Me() {
-  const session = await getSession();
-  return <>{session.username}</>;
+import { useEffect, useState } from "react";
+import { getSessionUsername } from "../lib/users-actions";
+
+export default function Me() {
+  const [username, setUsername] = useState<string | undefined>();
+
+  useEffect(() => {
+    (async () => {
+      const user = await getSessionUsername();
+      setUsername(user);
+    })();
+  });
+
+  return <>{username}</>;
 }

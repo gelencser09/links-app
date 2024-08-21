@@ -1,4 +1,4 @@
-import { Form } from "@/components/auth/login-form";
+import { Form } from "@/components/login-form";
 import { Card, CardBody, CardHeader } from "@/components/card";
 
 export default function Login() {

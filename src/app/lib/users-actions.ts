@@ -1,13 +1,12 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import bcrypt from "bcrypt";
+import { addUser, getUserByUsername } from "./users-data";
+import { SessionData, defaultSession, sessionOptions } from "./session";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-import { getUserByUsername } from "../data/users-data";
-import { SessionData, defaultSession, sessionOptions } from "../session";
 
 const CreateUser = z.object({
   username: z.string().min(3),
@@ -35,15 +34,10 @@ export async function createUser(prevState: State, formData: FormData) {
     };
   }
 
-  const prisma = new PrismaClient();
-
   try {
-    await prisma.user.create({
-      data: {
-        username: validatedFields.data.username,
-        password: await bcrypt.hash(validatedFields.data.password, 10),
-      },
-    });
+    const { username, password } = validatedFields.data;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await addUser(username, hashedPassword);
   } catch (error: any) {
     if (error?.code === "P2002") {
       return {
@@ -55,8 +49,6 @@ export async function createUser(prevState: State, formData: FormData) {
     return {
       message: "Unknown database error...",
     };
-  } finally {
-    await prisma.$disconnect();
   }
 
   redirect("/auth/login");
@@ -72,8 +64,12 @@ export async function getSession() {
   return session;
 }
 
+export async function getSessionUsername() {
+  return (await getSession()).username;
+}
+
 export async function authenticate(
-  prevState: string | undefined,
+  _prevState: string | undefined,
   formData: FormData,
 ) {
   const validatedFields = CreateUser.safeParse({

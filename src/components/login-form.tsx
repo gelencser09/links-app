@@ -1,8 +1,8 @@
 "use client";
 import { useFormState } from "react-dom";
-import { SubmitButton, TextInput } from "../form";
-import { User, Lock } from "../icons";
-import { authenticate } from "@/app/lib/actions/users-actions";
+import { SubmitButton, TextInput } from "./form";
+import { User, Lock } from "./icons";
+import { authenticate } from "@/app/lib/users-actions";
 
 export function Form() {
   const [error, formAction, isPending] = useFormState(authenticate, undefined);

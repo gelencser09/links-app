@@ -1,6 +1,6 @@
 "use client";
 
-import { logOut } from "@/app/lib/actions/users-actions";
+import { logOut } from "@/app/lib/users-actions";
 import { Logout } from "./icons";
 
 export function LogoutButton() {

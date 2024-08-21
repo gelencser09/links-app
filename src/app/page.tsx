@@ -1,4 +1,4 @@
-import { fetchUsers } from "./lib/data/users-data";
+import { fetchUsers } from "./lib/users-data";
 
 export default async function Home() {
   const allUsers = await fetchUsers();

@@ -1,9 +1,9 @@
 "use client";
 
-import { createUser } from "@/app/lib/actions/users-actions";
+import { createUser } from "@/app/lib/users-actions";
 import { useFormState } from "react-dom";
 import { SubmitButton, TextInput } from "@/components/form";
-import { User, Lock } from "../icons";
+import { User, Lock } from "./icons";
 
 export default function Form() {
   const initialState = { message: null, errors: {} };

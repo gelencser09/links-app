@@ -1,4 +1,4 @@
-import Form from "@/components/auth/create-user-form";
+import Form from "@/components/create-user-form";
 import { Card, CardBody, CardHeader } from "@/components/card";
 
 export default function Register() {

@@ -1,4 +1,4 @@
-import { getSession, logOut } from "@/app/lib/actions/users-actions";
+import { getSession, logOut } from "@/app/lib/users-actions";
 import { Logo, Logout } from "./icons";
 import { LogoutButton } from "./logout-button";
 
@@ -17,9 +17,12 @@ export async function Navbar() {
         </a>
         {username ? (
           <div className="flex items-center">
-            <h1 className="mr-3 text-lg font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
+            <a
+              href="/me"
+              className="mr-3 text-lg font-extrabold leading-none tracking-tight text-gray-900 dark:text-white"
+            >
               {username}
-            </h1>
+            </a>
             <LogoutButton />
           </div>
         ) : (
