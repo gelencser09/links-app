@@ -5,6 +5,7 @@ export function TextInput({
   placeholder = label,
   errors,
   icon,
+  defaultValue,
 }: {
   type?: string;
   name: string;
@@ -12,6 +13,7 @@ export function TextInput({
   placeholder?: string;
   errors?: string[];
   icon: React.ReactNode;
+  defaultValue?: string;
 }) {
   const withIcon = !!icon;
 
@@ -40,6 +42,7 @@ export function TextInput({
           className={cn}
           placeholder={placeholder}
           required
+          defaultValue={defaultValue}
         />
       </div>
       {errors
@@ -71,5 +74,35 @@ export function SubmitButton({
     >
       {children || "Submit"}
     </button>
+  );
+}
+
+export function Select({
+  name,
+  label,
+  errors,
+  children,
+}: {
+  name: string;
+  label: string;
+  errors?: string[];
+  children?: React.ReactNode;
+}) {
+  return (
+    <>
+      <label
+        htmlFor={name}
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        {label}
+      </label>
+      <select
+        name={name}
+        id={name}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        {children}
+      </select>
+    </>
   );
 }

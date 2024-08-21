@@ -1,6 +1,4 @@
-// "use client";
-
-import { Links } from "@/components/links";
+import { Links } from "@/components/links/links";
 import { getSessionUsername } from "../lib/users-actions";
 
 export default async function Me() {
@@ -8,7 +6,7 @@ export default async function Me() {
 
   return (
     <>
-      <Links username={username} />
+      <Links username={username} editable />
     </>
   );
 }

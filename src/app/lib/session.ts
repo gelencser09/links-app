@@ -1,10 +1,12 @@
 import { SessionOptions } from "iron-session";
 
 export interface SessionData {
+  userId?: number;
   username?: string;
 }
 
 export const defaultSession: SessionData = {
+  userId: undefined,
   username: undefined,
 };
 

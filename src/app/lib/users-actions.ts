@@ -61,6 +61,10 @@ export async function getSession() {
     session.username = defaultSession.username;
   }
 
+  if (!session.userId) {
+    session.userId = defaultSession.userId;
+  }
+
   return session;
 }
 
@@ -91,6 +95,7 @@ export async function authenticate(
   const session = await getSession();
 
   session.username = dbUser.username;
+  session.userId = dbUser.id;
 
   await session.save();
 
@@ -100,6 +105,7 @@ export async function authenticate(
 export async function logOut() {
   const session = await getSession();
   session.username = undefined;
+  session.userId = undefined;
   await session.save();
   redirect("/");
 }

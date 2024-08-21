@@ -12,3 +12,20 @@ export async function getLinksByUsername(username: string) {
 
   return links;
 }
+
+export async function addLink(
+  userId: number,
+  url: string,
+  label: string,
+  type: string,
+) {
+  console.log(userId, url, label, type);
+  await prisma.link.create({
+    data: {
+      url: url,
+      label: label,
+      type: type,
+      user_id: userId,
+    },
+  });
+}
