@@ -7,7 +7,11 @@ import { LinkForm } from "./link-form";
 import { Create } from "../icons";
 import { IconButton } from "./icon-button";
 import { useEffect, useState } from "react";
-import { LinkMutationState, createLink } from "@/app/lib/links-actions";
+import {
+  LinkMutationState,
+  createLink,
+  editLink,
+} from "@/app/lib/links-actions";
 import { useFormState } from "react-dom";
 import { create } from "domain";
 
@@ -43,13 +47,7 @@ export function Edit({ username, links }: { username: string; links: Link[] }) {
         </span>
 
         {links.map((link: Link) => (
-          <section key={link.id} className="flex items-center">
-            <LinkComponent {...link} />
-            <div className="flex flex-col">
-              <IconButton type="edit" />
-              <IconButton type="delete" />
-            </div>
-          </section>
+          <LinkComponentWithActions key={link.id} link={link} />
         ))}
       </Card>
 
@@ -62,5 +60,35 @@ export function Edit({ username, links }: { username: string; links: Link[] }) {
         />
       ) : null}
     </>
+  );
+}
+
+function LinkComponentWithActions({ link }: { link: Link }) {
+  const [editLinkModalOpen, setEditLinkModalOpen] = useState<boolean>(false);
+
+  const initialState = { errors: {} } as LinkMutationState;
+  const [state, dispatch] = useFormState(editLink, initialState);
+
+  useEffect(() => {
+    if (state.success) {
+      setEditLinkModalOpen(false);
+    }
+  }, [state]);
+
+  return (
+    <section key={link.id} className="flex">
+      <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
+      <LinkComponent {...link} />
+      <IconButton type="delete" />
+      {editLinkModalOpen ? (
+        <LinkForm
+          isOpen={editLinkModalOpen}
+          close={() => setEditLinkModalOpen(false)}
+          dispatch={dispatch}
+          state={state}
+          defaultValues={link}
+        />
+      ) : null}
+    </section>
   );
 }

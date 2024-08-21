@@ -2,17 +2,21 @@ import { LinkMutationState } from "@/app/lib/links-actions";
 import { Card, CardBody, CardHeader } from "../card";
 import { Select, SubmitButton, TextInput } from "../form";
 import { IconButton } from "./icon-button";
+import { Link } from "@prisma/client";
+import { Input } from "postcss";
 
 export function LinkForm({
   isOpen,
   close,
   dispatch,
   state,
+  defaultValues,
 }: {
   isOpen: boolean;
   close: () => void;
   dispatch: (formData: FormData) => void;
   state?: LinkMutationState;
+  defaultValues?: { id: number; url: string; label: string; type: string };
 }) {
   return (
     <div
@@ -28,7 +32,16 @@ export function LinkForm({
             </div>
           </CardHeader>
           <CardBody>
-            <form action={dispatch}>
+            <form
+              action={
+                defaultValues
+                  ? (formData) => {
+                      formData.append("id", defaultValues?.id.toString()); // id will be required for the update but it is not displayed on the form
+                      dispatch(formData);
+                    }
+                  : dispatch
+              }
+            >
               <TextInput
                 type="text"
                 name="url"
@@ -36,6 +49,7 @@ export function LinkForm({
                 placeholder="https://example.com/"
                 icon={null}
                 errors={state?.errors?.url}
+                defaultValue={defaultValues?.url}
               />
               <TextInput
                 type="text"
@@ -44,8 +58,13 @@ export function LinkForm({
                 placeholder="Check out my website"
                 icon={null}
                 errors={state?.errors?.label}
+                defaultValue={defaultValues?.label}
               />
-              <Select name="type" label="Type">
+              <Select
+                name="type"
+                label="Type"
+                defaultValue={defaultValues?.type}
+              >
                 <option value="FACEBOOK">Facebook</option>
                 <option value="INSTAGRAM">Instagram</option>
                 <option value="GITHUB">Github</option>
@@ -57,6 +76,11 @@ export function LinkForm({
                 <SubmitButton>Finish!</SubmitButton>
               </div>
             </form>
+            {state?.message ? (
+              <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                {state.message}
+              </p>
+            ) : null}
           </CardBody>
         </Card>
       </div>
