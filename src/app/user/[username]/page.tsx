@@ -1,3 +1,9 @@
+import { Links } from "@/components/links";
+
 export default function User({ params }: { params: { username: string } }) {
-  return <>User {params.username}</>;
+  return (
+    <>
+      <Links username={params.username} />
+    </>
+  );
 }

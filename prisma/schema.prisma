@@ -10,6 +10,7 @@ datasource db {
 model Link {
   id      Int    @id @default(autoincrement())
   user_id Int
+  label   String @db.VarChar(255)
   url     String @db.VarChar(255)
   type    String @db.VarChar(255)
   User    User   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

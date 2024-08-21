@@ -1,17 +1,14 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from "react";
+import { Links } from "@/components/links";
 import { getSessionUsername } from "../lib/users-actions";
 
-export default function Me() {
-  const [username, setUsername] = useState<string | undefined>();
+export default async function Me() {
+  const username = await getSessionUsername();
 
-  useEffect(() => {
-    (async () => {
-      const user = await getSessionUsername();
-      setUsername(user);
-    })();
-  });
-
-  return <>{username}</>;
+  return (
+    <>
+      <Links username={username} />
+    </>
+  );
 }
