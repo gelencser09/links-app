@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, CardHeader } from "../card";
+import { Card, CardHeader } from "../card";
 import { Link } from "@prisma/client";
 import { LinkComponent } from "./link";
 import { LinkForm } from "./link-form";

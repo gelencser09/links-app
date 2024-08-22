@@ -1,9 +1,7 @@
 import { Card, CardBody, CardHeader } from "@/components/card";
-import { fetchUsers } from "./lib/users-data";
 import Link from "next/link";
 
 export default async function Home() {
-  const allUsers = await fetchUsers();
   return (
     <>
       <Card>

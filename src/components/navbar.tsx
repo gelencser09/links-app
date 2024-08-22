@@ -1,5 +1,5 @@
-import { getSession, logOut } from "@/app/lib/users-actions";
-import { Logo, Logout, User } from "./icons";
+import { getSession } from "@/app/lib/users-actions";
+import { Logo, User } from "./icons";
 import { LogoutButton } from "./logout-button";
 import Link from "next/link";
 

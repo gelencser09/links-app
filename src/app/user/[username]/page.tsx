@@ -1,4 +1,3 @@
-import { getLinks } from "@/app/lib/links-actions";
 import { Links } from "@/components/links/links";
 
 export default async function User({
@@ -6,9 +5,5 @@ export default async function User({
 }: {
   params: { username: string };
 }) {
-  return (
-    <>
-      <Links username={params.username} />
-    </>
-  );
+  return <Links username={params.username} />;
 }
