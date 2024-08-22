@@ -1,5 +1,6 @@
 import { Card, CardBody, CardHeader } from "@/components/card";
 import { fetchUsers } from "./lib/users-data";
+import Link from "next/link";
 
 export default async function Home() {
   const allUsers = await fetchUsers();
@@ -30,20 +31,20 @@ export default async function Home() {
           <ul className="list-disc list-inside">
             <li className="mt-5 text-center">
               Feel free to try this app, by{" "}
-              <a href="/auth/register" className="underline">
+              <Link href="/auth/register" className="underline">
                 creating a user
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="/auth/login" className="underline">
+              <Link href="/auth/login" className="underline">
                 logging in
-              </a>
+              </Link>
               .
             </li>
             <li className="mt-5 text-center">
               You can{" "}
-              <a href="/me" className="underline">
+              <Link href="/me" className="underline">
                 manage your links
-              </a>{" "}
+              </Link>{" "}
               after logging in and clicking on your user next to the logout
               button.
             </li>
