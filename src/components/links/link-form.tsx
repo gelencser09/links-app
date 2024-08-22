@@ -2,8 +2,6 @@ import { LinkMutationState } from "@/app/lib/links-actions";
 import { Card, CardBody, CardHeader } from "../card";
 import { Select, SubmitButton, TextInput } from "../form";
 import { IconButton } from "./icon-button";
-import { Link } from "@prisma/client";
-import { Input } from "postcss";
 
 export function LinkForm({
   isOpen,

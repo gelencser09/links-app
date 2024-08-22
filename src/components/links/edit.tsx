@@ -11,9 +11,11 @@ import {
   LinkMutationState,
   createLink,
   editLink,
+  removeLink,
 } from "@/app/lib/links-actions";
 import { useFormState } from "react-dom";
-import { create } from "domain";
+import { deleteLink } from "@/app/lib/links-data";
+import { DeleteLinkModal } from "./delete-modal";
 
 export function Edit({ username, links }: { username: string; links: Link[] }) {
   const [createFormOpen, setCreateFormOpen] = useState<boolean>(false);
@@ -65,9 +67,16 @@ export function Edit({ username, links }: { username: string; links: Link[] }) {
 
 function LinkComponentWithActions({ link }: { link: Link }) {
   const [editLinkModalOpen, setEditLinkModalOpen] = useState<boolean>(false);
+  const [deleteLinkModalOpen, setDeleteLinkModalOpen] =
+    useState<boolean>(false);
 
   const initialState = { errors: {} } as LinkMutationState;
   const [state, dispatch] = useFormState(editLink, initialState);
+
+  const [deleteState, deleteDispatch] = useFormState(removeLink, {
+    success: false,
+    error: undefined,
+  });
 
   useEffect(() => {
     if (state.success) {
@@ -75,11 +84,22 @@ function LinkComponentWithActions({ link }: { link: Link }) {
     }
   }, [state]);
 
+  useEffect(() => {
+    if (deleteState.success) {
+      setDeleteLinkModalOpen(false);
+    }
+  }, [deleteState]);
+
   return (
     <section key={link.id} className="flex">
-      <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
       <LinkComponent {...link} />
-      <IconButton type="delete" />
+      <div className="flex flex-col justify-around">
+        <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
+        <IconButton
+          type="delete"
+          onClick={() => setDeleteLinkModalOpen(true)}
+        />
+      </div>
       {editLinkModalOpen ? (
         <LinkForm
           isOpen={editLinkModalOpen}
@@ -87,6 +107,15 @@ function LinkComponentWithActions({ link }: { link: Link }) {
           dispatch={dispatch}
           state={state}
           defaultValues={link}
+        />
+      ) : null}
+      {deleteLinkModalOpen ? (
+        <DeleteLinkModal
+          isOpen={deleteLinkModalOpen}
+          close={() => setDeleteLinkModalOpen(false)}
+          dispatch={deleteDispatch}
+          state={deleteState}
+          values={link}
         />
       ) : null}
     </section>

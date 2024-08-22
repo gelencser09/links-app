@@ -1,12 +1,15 @@
 "use server";
 
 import { cache } from "react";
-import { addLink, getLinksByUsername, updateLink } from "./links-data";
+import {
+  addLink,
+  deleteLink,
+  getLinksByUsername,
+  updateLink,
+} from "./links-data";
 import { z } from "zod";
-import { validateHeaderValue } from "http";
 import { getSession } from "./users-actions";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export const getLinks = cache(async (username: string) => {
   return await getLinksByUsername(username);
@@ -80,8 +83,6 @@ export async function editLink(
     type: formData.get("type"),
   });
 
-  console.log(validatedFields.data);
-
   if (!validatedFields.success) {
     console.log(validatedFields.error);
     return {
@@ -108,6 +109,43 @@ export async function editLink(
     console.log(err);
     return {
       message: "Database error.",
+    };
+  }
+}
+
+export async function removeLink(
+  previousState: { success?: boolean; error?: string },
+  formData: FormData,
+) {
+  const fields = z
+    .object({
+      id: z.number(),
+    })
+    .safeParse({
+      id: parseInt(formData.get("id") as string),
+    });
+
+  if (!fields.success) {
+    return { error: "Invalid link id." };
+  }
+
+  const userSessionId = (await getSession()).userId;
+
+  if (!userSessionId) {
+    return {
+      error: "You must be logged in to delete your link",
+    };
+  }
+
+  try {
+    await deleteLink(userSessionId, fields.data.id);
+    revalidatePath("/me");
+    return {
+      success: true,
+    };
+  } catch (error) {
+    return {
+      error: "Database error",
     };
   }
 }

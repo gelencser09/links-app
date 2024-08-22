@@ -10,7 +10,7 @@ export function LinkComponent({ label, url, type }: Link) {
         className="block flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
       >
         <LinkIcon type={type} />
-        <div className="w-full mx-5 flex justify-center overflow-hidden">
+        <div className="w-full h-12 mx-5 flex justify-center text-center items-center overflow-hidden">
           {label}
         </div>
       </a>

@@ -1,4 +1,3 @@
-import { Link } from "@prisma/client";
 import { prisma } from "./db";
 
 export async function getLinksByUsername(username: string) {
@@ -56,6 +55,15 @@ export async function updateLink(
       url: url,
       label: label,
       type: type,
+    },
+  });
+}
+
+export async function deleteLink(sessionUserId: number, id: number) {
+  await prisma.link.delete({
+    where: {
+      user_id: sessionUserId,
+      id: id,
     },
   });
 }
