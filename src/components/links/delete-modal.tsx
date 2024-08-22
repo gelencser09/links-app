@@ -26,7 +26,7 @@ export function DeleteLinkModal({
         <Card>
           <CardHeader>
             <div className="flex justify-between">
-              <p>Do you want to delete this link?</p>
+              <p>Delete this link?</p>
               <IconButton type="close" onClick={close} />
             </div>
           </CardHeader>

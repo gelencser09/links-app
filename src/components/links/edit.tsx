@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader } from "../card";
+import { Card, CardBody, CardHeader } from "../card";
 import { Link } from "@prisma/client";
 import { LinkComponent } from "./link";
 import { LinkForm } from "./link-form";
@@ -14,8 +14,8 @@ import {
   removeLink,
 } from "@/app/lib/links-actions";
 import { useFormState } from "react-dom";
-import { deleteLink } from "@/app/lib/links-data";
 import { DeleteLinkModal } from "./delete-modal";
+import { PageShare } from "./page-share";
 
 export function Edit({ username, links }: { username: string; links: Link[] }) {
   const [createFormOpen, setCreateFormOpen] = useState<boolean>(false);
@@ -52,6 +52,8 @@ export function Edit({ username, links }: { username: string; links: Link[] }) {
           <LinkComponentWithActions key={link.id} link={link} />
         ))}
       </Card>
+
+      <PageShare username={username} />
 
       {createFormOpen ? (
         <LinkForm
@@ -93,7 +95,7 @@ function LinkComponentWithActions({ link }: { link: Link }) {
   return (
     <section key={link.id} className="flex">
       <LinkComponent {...link} />
-      <div className="flex flex-col justify-around">
+      <div className="flex flex-col justify-evenly">
         <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
         <IconButton
           type="delete"
