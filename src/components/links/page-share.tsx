@@ -4,7 +4,7 @@ import { Card, CardBody } from "../card";
 import { IconButton } from "./icon-button";
 
 export function PageShare({ username }: { username: string }) {
-  const personalLink = `${process.env.NEXT_PUBLIC_BASE_URL!}/user/${username}`;
+  const personalLink = `${process.env.BASE_URL!}/user/${username}`;
   console.log(personalLink);
   return (
     <Card>
