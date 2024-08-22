@@ -15,8 +15,8 @@ const CreateUser = z.object({
 
 export type State = {
   errors?: {
-    username: string[];
-    password: string[];
+    username?: string[];
+    password?: string[];
   };
   message?: string | null;
 };
@@ -43,6 +43,7 @@ export async function createUser(prevState: State, formData: FormData) {
       return {
         errors: {
           username: ["This username is already taken."],
+          password: [],
         },
       };
     }

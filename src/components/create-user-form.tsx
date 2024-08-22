@@ -6,7 +6,10 @@ import { SubmitButton, TextInput } from "@/components/form";
 import { User, Lock } from "./icons";
 
 export default function Form() {
-  const initialState = { message: null, errors: {} };
+  const initialState = {
+    message: undefined,
+    errors: { username: [], password: [] },
+  };
   const [state, dispatch] = useFormState(createUser, initialState);
 
   return (
@@ -15,7 +18,7 @@ export default function Form() {
         name="username"
         label="Username"
         placeholder="Enter your username"
-        errors={state.errors?.username}
+        errors={state?.errors?.username}
         icon={<User />}
       />
       <TextInput

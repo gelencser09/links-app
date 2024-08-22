@@ -12,7 +12,10 @@ export async function View({
   return (
     <Card>
       <div className="flex justify-center">
-        <CardHeader>See {username}'s links</CardHeader>
+        <CardHeader>
+          See {username}
+          {"'s"} links
+        </CardHeader>
       </div>
 
       {links.map((link: Link) => (
