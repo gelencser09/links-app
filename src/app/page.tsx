@@ -6,6 +6,7 @@ export default async function Home() {
     <>
       <Card>
         <CardHeader>Welcome!</CardHeader>
+
         <div
           className="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
           role="alert"
@@ -25,6 +26,7 @@ export default async function Home() {
             use. Do not provide any personal information.
           </div>
         </div>
+
         <CardBody>
           <ul className="list-disc list-inside">
             <li className="mt-5 text-center">

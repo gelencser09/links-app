@@ -18,11 +18,13 @@ export async function View({
         </CardHeader>
       </div>
 
-      {links.map((link: Link) => (
-        <section key={link.id}>
-          <LinkComponent {...link} />
-        </section>
-      ))}
+      <div className="flex flex-col gap-3">
+        {links.map((link: Link) => (
+          <section key={link.id}>
+            <LinkComponent {...link} />
+          </section>
+        ))}
+      </div>
     </Card>
   );
 }

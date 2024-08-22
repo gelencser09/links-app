@@ -48,9 +48,11 @@ export function Edit({ username, links }: { username: string; links: Link[] }) {
           </button>
         </span>
 
-        {links.map((link: Link) => (
-          <LinkComponentWithActions key={link.id} link={link} />
-        ))}
+        <div className="flex flex-col gap-3">
+          {links.map((link: Link) => (
+            <LinkComponentWithActions key={link.id} link={link} />
+          ))}
+        </div>
       </Card>
 
       <PageShare username={username} />
@@ -93,9 +95,9 @@ function LinkComponentWithActions({ link }: { link: Link }) {
   }, [deleteState]);
 
   return (
-    <section key={link.id} className="flex">
+    <section>
       <LinkComponent {...link} />
-      <div className="flex flex-col justify-evenly">
+      <div className="flex gap-1 mt-1">
         <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
         <IconButton
           type="delete"
