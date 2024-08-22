@@ -9,8 +9,8 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 
 const CreateUser = z.object({
-  username: z.string().min(3),
-  password: z.string().min(3),
+  username: z.string().min(3).max(10),
+  password: z.string().min(3).max(20),
 });
 
 export type State = {

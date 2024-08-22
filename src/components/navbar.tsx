@@ -1,5 +1,5 @@
 import { getSession, logOut } from "@/app/lib/users-actions";
-import { Logo, Logout } from "./icons";
+import { Logo, Logout, User } from "./icons";
 import { LogoutButton } from "./logout-button";
 
 export async function Navbar() {
@@ -21,7 +21,10 @@ export async function Navbar() {
               href="/me"
               className="mr-3 text-lg font-extrabold leading-none tracking-tight text-gray-900 dark:text-white"
             >
-              {username}
+              <div className="hidden sm:block">{username}</div>
+              <div className="sm:hidden">
+                <User />
+              </div>
             </a>
             <LogoutButton />
           </div>
