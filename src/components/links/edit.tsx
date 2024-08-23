@@ -95,9 +95,9 @@ function LinkComponentWithActions({ link }: { link: Link }) {
   }, [deleteState]);
 
   return (
-    <section>
+    <section className="flex">
       <LinkComponent {...link} />
-      <div className="flex gap-1 mt-1">
+      <div className="flex flex-col justify-center gap-1">
         <IconButton type="edit" onClick={() => setEditLinkModalOpen(true)} />
         <IconButton
           type="delete"
